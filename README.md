@@ -1,16 +1,35 @@
-# React + Vite
+# Multiquizz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MultiQuiz Ingenierías es un innovador videojuego educativo tipo trivia que revoluciona la forma en que los estudiantes de ingeniería refuerzan y adquieren conocimientos. Inspirado en el exitoso formato de "Preguntados", este proyecto fusiona entretenimiento y aprendizaje para crear una experiencia educativa única y envolvente.
 
-Currently, two official plugins are available:
+## PROPUESTA DE VALOR
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ¿Qué Problema Resuelve? 
 
-## React Compiler
+* Aprendizaje Pasivo: Transforma el estudio tradicional en una experiencia interactiva y divertida
+* Falta de Motivación: Gamifica el proceso educativo mediante recompensas y competencias
+* Conocimiento Fragmentado: Integra diferentes áreas de la ingeniería en una plataforma unificada
+* Evaluación Continua: Proporciona retroalimentación inmediata para acelerar el aprendizaje
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+### ¿Cómo lo Resuelve?
 
-## Expanding the ESLint configuration
+* Gamificación Avanzada: Sistema de niveles, avatares, insignias y certificados digitales
+* Competencia Saludable: Rankings globales y desafíos entre pares
+* Aprendizaje Adaptativo: Niveles progresivos de dificultad personalizados
+* Retroalimentación Instantánea: Explicaciones inmediatas tras cada respuesta
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ARQUITECTURA DEL PROYECTO
+
+### Especialidades de Ingeniería Incluidas:
+
+1.	Ingeniería Multimedia - Diseño digital, animación, desarrollo web
+2.	Ingeniería de Software - Programación, algoritmos, arquitectura de sistemas
+3.	Ingeniería Civil - Construcción, estructuras, materiales
+4.	Ingeniería Mecatrónica - Automatización, robótica, control de sistemas
+5.	Ingeniería Ambiental - Sostenibilidad, gestión de recursos, impacto ecológico
+
+### Sistema de Progresión:
+* 5 niveles de Dificultad: Fácil → Novato → Difícil → Profesional → Gran Maestro
+* Sistema de Experiencia: Puntos acumulativos por especialidad
+* Desbloqueo Progresivo: Nuevas áreas se habilitan con el progreso
+* Certificaciones Digitales: Reconocimientos oficiales por logros
