@@ -146,13 +146,27 @@ function GamePage() {
             <div className="logo">🎓 MultiQuiz</div>
             <div className="user-info">
               <span className="user-name">👤 {user.nombre}</span>
-              <span className="score">❤️ {vidas}</span>
-              <span className="score">⭐ {puntos} pts</span>
+              <span className="score sh1">❤️ {vidas}</span>
+              <span className="score sh1">⭐ {puntos} pts</span>
               <button onClick={handleLogout} className="btn-logout">Salir</button>
             </div>
           </div>
+          
         </div>
       </header>
+      <header className="game-header gh2">
+
+        <div className="container">
+          <div className="header-content">
+            <div className="user-info">
+              <span className="score">❤️ {vidas}</span>
+              <span className="score">⭐ {puntos} pts</span>
+            </div>
+          </div>
+          
+        </div>
+      </header>
+      
 
       <main className="game-main">
         <div className="container">

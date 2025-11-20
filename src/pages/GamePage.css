@@ -279,8 +279,15 @@ button.link:hover {
   margin-top: 2rem;
 }
 
+ .gh2{
+    display: none;
+  }
+
 /* Responsive */
 @media (max-width: 768px) {
+  .gh2{
+    display: block;
+  }
   .question-text {
     font-size: 1.25rem;
   }
@@ -296,6 +303,13 @@ button.link:hover {
   
   .score-value {
     font-size: 3rem;
+  }
+ 
+  .sh1{
+    display: none;
+  }
+  .link{
+    font-size: 1rem;
   }
 }
 
