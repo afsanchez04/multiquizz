@@ -39,8 +39,14 @@ function SelectIngenieriaPage() {
   ];
 
   const handleSeleccion = (ingenieria) => {
+    // Convertir a minúsculas y limpiar tildes para evitar conflictos
+    const normalizada = ingenieria
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, ""); 
+
     // Guardar la ingeniería seleccionada
-    localStorage.setItem('ingenieriaSeleccionada', ingenieria.toLowerCase());
+    localStorage.setItem('ingenieriaSeleccionada', normalizada);
     // Ir a la página del juego
     navigate('/game');
   };

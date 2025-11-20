@@ -61,7 +61,21 @@
 }
 
 .game-main {
-  padding: 3rem 0;
+  padding: 1rem 0;
+}
+
+button.link {
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    margin-bottom: 20px;
+}
+button.link:hover {
+
+    color: #c4c4c4;
+    text-decoration: underline;
+
 }
 
 .question-card {
@@ -247,7 +261,7 @@
 .score-value {
   font-size: 4rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, #f1f1ff, #b492ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -295,5 +309,41 @@
 .ingenieria-completada h2 {
   font-size: 1.5rem;
   text-transform: capitalize;
-  color: var(--primary);
+  color: #cfd0ff;
 }
+
+/* Vidas */
+
+.vidas-bar {
+  display: flex;
+  gap: 4px;
+  padding: 10px;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 350px;
+  color: rgba(15, 23, 42, 0.95);
+}
+.modal-content p{
+  margin: 10px 0;
+}
+
