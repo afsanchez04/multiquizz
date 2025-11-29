@@ -64,6 +64,9 @@ function SelectIngenieriaPage() {
             <div className="logo">🎓 MultiQuiz</div>
             <div className="user-info">
               <span className="user-name">👤 {user.nombre}</span>
+              <button onClick={() => navigate('/profile')} className="btn-profile">
+                👤 Mi Perfil
+              </button>
               <button onClick={handleLogout} className="btn-logout">Salir</button>
             </div>
           </div>

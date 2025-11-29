@@ -7,7 +7,7 @@ const nombresIngenieria = {
   multimedia: "Multimedia",
   software: "Software",
   civil: "Civil",
-  mecatronica: "Mecatrónica",  // ← aquí recuperamos la tilde
+  mecatronica: "Mecatrónica",
   ambiental: "Ambiental"
 };
 
@@ -32,6 +32,95 @@ function GamePage() {
     const preguntasIngenieria = PREGUNTAS_POR_INGENIERIA[ingenieriaSeleccionada] || [];
     setPreguntas(preguntasIngenieria);
   }, [ingenieriaSeleccionada]);
+
+  // ⭐ NUEVO: Actualizar estadísticas del usuario cuando el juego termina
+  useEffect(() => {
+    if (juegoTerminado) {
+      actualizarEstadisticasUsuario();
+    }
+  }, [juegoTerminado]);
+
+  const actualizarEstadisticasUsuario = () => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const ingenieria = ingenieriaSeleccionada;
+    
+    // Actualizar partidas jugadas
+    user.partidasJugadas = (user.partidasJugadas || 0) + 1;
+    
+    // Actualizar XP total
+    user.xpTotal = (user.xpTotal || 0) + puntos;
+    
+    // Actualizar mejor puntuación global
+    if (puntos > (user.mejorPuntuacion || 0)) {
+      user.mejorPuntuacion = puntos;
+    }
+    
+    // Actualizar progreso de la ingeniería
+    if (!user.progresoIngenierias) {
+      user.progresoIngenierias = {};
+    }
+    
+    if (!user.progresoIngenierias[ingenieria]) {
+      user.progresoIngenierias[ingenieria] = { completada: false, mejorScore: 0, intentos: 0 };
+    }
+    
+    user.progresoIngenierias[ingenieria].intentos += 1;
+    
+    if (puntos > user.progresoIngenierias[ingenieria].mejorScore) {
+      user.progresoIngenierias[ingenieria].mejorScore = puntos;
+    }
+    
+    // Marcar como completada si obtuvo puntaje perfecto
+    const puntajePerfecto = preguntas.length * 100;
+    if (puntos === puntajePerfecto) {
+      user.progresoIngenierias[ingenieria].completada = true;
+      
+      // Agregar certificado si no existe
+      if (!user.certificados) user.certificados = [];
+      const certificadoExiste = user.certificados.find(c => c.ingenieria === ingenieria);
+      
+      if (!certificadoExiste) {
+        user.certificados.push({
+          ingenieria: ingenieria,
+          fecha: new Date().toISOString(),
+          puntaje: puntos
+        });
+      }
+    }
+    
+    // Verificar logros
+    verificarLogros(user);
+    
+    // Calcular nivel basado en XP
+    user.nivel = Math.floor((user.xpTotal || 0) / 500) + 1;
+    
+    localStorage.setItem('user', JSON.stringify(user));
+  };
+
+  const verificarLogros = (user) => {
+    if (!user.logros) user.logros = [];
+    
+    const logrosDisponibles = [
+      { id: 'primera_partida', nombre: 'Primera Partida', descripcion: 'Completa tu primera partida', condicion: () => user.partidasJugadas >= 1, icono: '🎮' },
+      { id: 'perfeccionista', nombre: 'Perfeccionista', descripcion: 'Obtén un puntaje perfecto', condicion: () => user.mejorPuntuacion >= 1000, icono: '💯' },
+      { id: 'explorador', nombre: 'Explorador', descripcion: 'Juega las 5 ingenierías', condicion: () => Object.values(user.progresoIngenierias || {}).filter(i => i.intentos > 0).length === 5, icono: '🗺️' },
+      { id: 'maestro', nombre: 'Maestro', descripcion: 'Completa una ingeniería al 100%', condicion: () => Object.values(user.progresoIngenierias || {}).some(i => i.completada), icono: '🏆' },
+      { id: 'veterano', nombre: 'Veterano', descripcion: 'Juega 10 partidas', condicion: () => user.partidasJugadas >= 10, icono: '⭐' }
+    ];
+    
+    logrosDisponibles.forEach(logro => {
+      const yaDesbloqueado = user.logros.find(l => l.id === logro.id);
+      if (!yaDesbloqueado && logro.condicion()) {
+        user.logros.push({
+          id: logro.id,
+          nombre: logro.nombre,
+          descripcion: logro.descripcion,
+          icono: logro.icono,
+          fechaDesbloqueo: new Date().toISOString()
+        });
+      }
+    });
+  };
 
   const pregunta = preguntas[preguntaActual];
 
@@ -107,7 +196,7 @@ function GamePage() {
           <h1>🎉 ¡Juego Terminado!</h1>
 
           <div className="ingenieria-completada">
-            <h2>Ingeniería {ingenieriaSeleccionada}</h2>
+            <h2>Ingeniería {nombresIngenieria[ingenieriaSeleccionada]}</h2>
           </div>
 
           <div className="final-score">
@@ -137,10 +226,7 @@ function GamePage() {
   return (
     <div className="game-container">
 
-
-
       <header className="game-header">
-
         <div className="container">
           <div className="header-content">
             <div className="logo">🎓 MultiQuiz</div>
@@ -148,14 +234,16 @@ function GamePage() {
               <span className="user-name">👤 {user.nombre}</span>
               <span className="score sh1">❤️ {vidas}</span>
               <span className="score sh1">⭐ {puntos} pts</span>
+              <button onClick={() => navigate('/profile')} className="btn-profile">
+                👤 Perfil
+              </button>
               <button onClick={handleLogout} className="btn-logout">Salir</button>
             </div>
           </div>
-          
         </div>
       </header>
-      <header className="game-header gh2">
 
+      <header className="game-header gh2">
         <div className="container">
           <div className="header-content">
             <div className="user-info">
@@ -163,16 +251,14 @@ function GamePage() {
               <span className="score">⭐ {puntos} pts</span>
             </div>
           </div>
-          
         </div>
       </header>
-      
 
       <main className="game-main">
         <div className="container">
           <div style={{ maxWidth: "800px", margin: "auto" }}>
             <button onClick={reiniciarYSalir} className="link">
-              <i class="bi bi-arrow-left"></i> Volver a seleccionar ingeniería
+              <i className="bi bi-arrow-left"></i> Volver a seleccionar ingeniería
             </button>
           </div>
           <div className="question-card fade-in">
@@ -181,7 +267,6 @@ function GamePage() {
                 className="progress-fill"
                 style={{ width: `${((preguntaActual + 1) / preguntas.length) * 100}%` }}
               ></div>
-
             </div>
 
             <div className="question-header">
@@ -191,7 +276,6 @@ function GamePage() {
               <span className="question-number">
                 Pregunta {preguntaActual + 1} de {preguntas.length}
               </span>
-
             </div>
 
             <h2 className="question-text">{pregunta.pregunta}</h2>

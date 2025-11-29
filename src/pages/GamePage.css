@@ -25,6 +25,7 @@
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .user-info {
@@ -58,6 +59,24 @@
   background: rgba(255, 255, 255, 0.1);
   border-color: var(--danger);
   color: var(--danger);
+}
+
+/* ⭐ NUEVO: Botón de Perfil */
+.btn-profile {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.btn-profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
 .game-main {
@@ -264,6 +283,7 @@ button.link:hover {
   background: linear-gradient(135deg, #f1f1ff, #b492ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .result-message {
@@ -360,4 +380,3 @@ button.link:hover {
 .modal-content p{
   margin: 10px 0;
 }
-

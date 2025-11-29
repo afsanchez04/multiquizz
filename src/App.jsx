@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SelectIngenieriaPage from './pages/SelectIngenieriaPage';
 import GamePage from './pages/GamePage';
+import ProfilePage from './pages/ProfilePage'; // NUEVA RUTA
 import './styles/global.css';
 
 function App() {
@@ -36,6 +37,14 @@ function App() {
             </ProtectedRoute>
           } 
         />
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          } 
+        /> {/*RUTA AGREGADA*/}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

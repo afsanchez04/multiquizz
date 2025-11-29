@@ -1,0 +1,476 @@
+/* ===================================
+   PROFILE PAGE STYLES
+=================================== */
+
+.profile-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1f3a 0%, #2d1b4e 100%);
+}
+
+/* Header */
+.profile-header {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.profile-header .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-header .logo:hover {
+  transform: scale(1.05);
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Main Content */
+.profile-main {
+  padding: 2rem 0;
+}
+
+.profile-main .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ===================================
+   TARJETA DE IDENTIDAD
+=================================== */
+
+.profile-identity {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.identity-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+}
+
+.avatar-display {
+  position: relative;
+}
+
+.avatar-icon {
+  font-size: 5rem;
+  display: block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+}
+
+.avatar-selector {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 15px;
+}
+
+.avatar-option {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-option:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.avatar-option.selected {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.3);
+  transform: scale(1.15);
+}
+
+.identity-info h1 {
+  color: white;
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.user-email {
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 1rem 0;
+}
+
+.level-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.edit-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.identity-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ===================================
+   ESTADÍSTICAS
+=================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+/* ===================================
+   SECCIONES
+=================================== */
+
+.section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  color: white;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Progreso Total */
+.progreso-total {
+  margin-bottom: 2rem;
+}
+
+.progreso-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  height: 30px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progreso-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  color: white;
+  font-weight: bold;
+}
+
+.progreso-total span {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Progreso por Ingeniería */
+.ingenierias-progress {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.ingenieria-progress-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.ing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ing-header h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.badge-completado {
+  background: #10b981;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.ing-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.ing-stats strong {
+  color: white;
+}
+
+.progreso-bar-small {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progreso-bar-small [class^="progreso-fill-"] {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.progreso-fill-multimedia { background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%); }
+.progreso-fill-software { background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); }
+.progreso-fill-civil { background: linear-gradient(90deg, #fa709a 0%, #fee140 100%); }
+.progreso-fill-mecatronica { background: linear-gradient(90deg, #30cfd0 0%, #330867 100%); }
+.progreso-fill-ambiental { background: linear-gradient(90deg, #a8edea 0%, #fed6e3 100%); }
+
+/* ===================================
+   LOGROS
+=================================== */
+
+.logros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.logro-card {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1));
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.logro-card:hover {
+  transform: translateY(-5px);
+}
+
+.logro-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.logro-card h4 {
+  color: white;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.logro-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+
+.logro-card small {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+}
+
+/* ===================================
+   CERTIFICADOS
+=================================== */
+
+.certificados-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.certificado-card {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.certificado-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.certificado-header h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.certificado-fecha {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+.certificado-card p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* ===================================
+   ESTADOS VACÍOS
+=================================== */
+
+.empty-state {
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.loading {
+  color: white;
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.5rem;
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media (max-width: 768px) {
+  .profile-identity {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .identity-left {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .identity-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .identity-actions button {
+    width: 100%;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ingenierias-progress {
+    grid-template-columns: 1fr;
+  }
+  
+  .avatar-selector {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

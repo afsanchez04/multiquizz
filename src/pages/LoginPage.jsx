@@ -14,22 +14,45 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Crear estructura completa de usuario
+    const nuevoUsuario = {
+      email: formData.email,
+      nombre: formData.nombre || formData.email.split('@')[0],
+      avatar: '👤', // Avatar por defecto
+      nivel: 1,
+      xpTotal: 0,
+      partidasJugadas: 0,
+      mejorPuntuacion: 0,
+      
+      // Progreso por ingeniería
+      progresoIngenierias: {
+        multimedia: { completada: false, mejorScore: 0, intentos: 0 },
+        software: { completada: false, mejorScore: 0, intentos: 0 },
+        civil: { completada: false, mejorScore: 0, intentos: 0 },
+        mecatronica: { completada: false, mejorScore: 0, intentos: 0 },
+        ambiental: { completada: false, mejorScore: 0, intentos: 0 }
+      },
+      
+      // Logros desbloqueados
+      logros: [],
+      
+      // Certificados obtenidos
+      certificados: [],
+      
+      // Fecha de registro
+      fechaRegistro: new Date().toISOString()
+    };
+    
     // Simulación de login exitoso
     if (isLogin) {
       // Guardar usuario en localStorage
-      localStorage.setItem('user', JSON.stringify({
-        email: formData.email,
-        nombre: formData.nombre || formData.email.split('@')[0] // Usa el email si no hay nombre
-      }));
-      navigate('/select-ingenieria'); // ✅ CAMBIO AQUÍ: redirige a selección de ingeniería
+      localStorage.setItem('user', JSON.stringify(nuevoUsuario));
+      navigate('/select-ingenieria');
     } else {
       // Registro exitoso
-      localStorage.setItem('user', JSON.stringify({
-        email: formData.email,
-        nombre: formData.nombre
-      }));
+      localStorage.setItem('user', JSON.stringify(nuevoUsuario));
       alert('¡Registro exitoso! Redirigiendo...');
-      navigate('/select-ingenieria'); // ✅ CAMBIO AQUÍ: también redirige después del registro
+      navigate('/select-ingenieria');
     }
   };
 
