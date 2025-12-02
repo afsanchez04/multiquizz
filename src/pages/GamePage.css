@@ -380,3 +380,11 @@ button.link:hover {
 .modal-content p{
   margin: 10px 0;
 }
+
+.modal-content-info{
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 900px;
+  color: rgba(15, 23, 42, 0.95);
+}

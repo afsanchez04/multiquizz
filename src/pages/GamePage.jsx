@@ -18,6 +18,9 @@ function GamePage() {
   const [mostrarResultado, setMostrarResultado] = useState(false);
   const [juegoTerminado, setJuegoTerminado] = useState(false);
   const [preguntas, setPreguntas] = useState([]);
+  const [mostrarModalNivel, setMostrarModalNivel] = useState(false);
+  const [imagenNivel, setImagenNivel] = useState("");
+
 
   // ⭐ NUEVO: VIDAS
   const [vidas, setVidas] = useState(5);
@@ -35,50 +38,74 @@ function GamePage() {
 
   // ⭐ NUEVO: Actualizar estadísticas del usuario cuando el juego termina
   useEffect(() => {
-    if (juegoTerminado) {
+    if (juegoTerminado && vidas > 0) {
       actualizarEstadisticasUsuario();
     }
-  }, [juegoTerminado]);
+  }, [juegoTerminado, vidas]);
+
+  // ⭐ Mostrar modal de niveles
+  useEffect(() => {
+    if (preguntaActual === 0) {
+      setImagenNivel("./bienvenida.jpg");
+      setMostrarModalNivel(true);
+    }
+
+    if (preguntaActual === 3) { // Pregunta 4 (índice 3)
+      setImagenNivel("./nivel_medio.jpg");
+      setMostrarModalNivel(true);
+    }
+
+    if (preguntaActual === 6) { // Pregunta 7 (índice 6)
+      setImagenNivel("./nivel_alto.jpg");
+      setMostrarModalNivel(true);
+    }
+  }, [preguntaActual]);
+
 
   const actualizarEstadisticasUsuario = () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const ingenieria = ingenieriaSeleccionada;
-    
+
     // Actualizar partidas jugadas
     user.partidasJugadas = (user.partidasJugadas || 0) + 1;
-    
+
+    // Actualizar partidas completadas (solo si no perdió)
+    if (vidas > 0) {
+      user.partidasCompletadas = (user.partidasCompletadas || 0) + 1;
+    }
+
     // Actualizar XP total
     user.xpTotal = (user.xpTotal || 0) + puntos;
-    
+
     // Actualizar mejor puntuación global
     if (puntos > (user.mejorPuntuacion || 0)) {
       user.mejorPuntuacion = puntos;
     }
-    
+
     // Actualizar progreso de la ingeniería
     if (!user.progresoIngenierias) {
       user.progresoIngenierias = {};
     }
-    
+
     if (!user.progresoIngenierias[ingenieria]) {
       user.progresoIngenierias[ingenieria] = { completada: false, mejorScore: 0, intentos: 0 };
     }
-    
+
     user.progresoIngenierias[ingenieria].intentos += 1;
-    
+
     if (puntos > user.progresoIngenierias[ingenieria].mejorScore) {
       user.progresoIngenierias[ingenieria].mejorScore = puntos;
     }
-    
+
     // Marcar como completada si obtuvo puntaje perfecto
     const puntajePerfecto = preguntas.length * 100;
     if (puntos === puntajePerfecto) {
       user.progresoIngenierias[ingenieria].completada = true;
-      
+
       // Agregar certificado si no existe
       if (!user.certificados) user.certificados = [];
       const certificadoExiste = user.certificados.find(c => c.ingenieria === ingenieria);
-      
+
       if (!certificadoExiste) {
         user.certificados.push({
           ingenieria: ingenieria,
@@ -87,27 +114,27 @@ function GamePage() {
         });
       }
     }
-    
+
     // Verificar logros
     verificarLogros(user);
-    
+
     // Calcular nivel basado en XP
     user.nivel = Math.floor((user.xpTotal || 0) / 500) + 1;
-    
+
     localStorage.setItem('user', JSON.stringify(user));
   };
 
   const verificarLogros = (user) => {
     if (!user.logros) user.logros = [];
-    
+
     const logrosDisponibles = [
-      { id: 'primera_partida', nombre: 'Primera Partida', descripcion: 'Completa tu primera partida', condicion: () => user.partidasJugadas >= 1, icono: '🎮' },
+      { id: 'primera_partida', nombre: 'Primera Partida', descripcion: 'Juega tu primera partida', condicion: () => user.partidasCompletadas >= 1, icono: '🎮' },
       { id: 'perfeccionista', nombre: 'Perfeccionista', descripcion: 'Obtén un puntaje perfecto', condicion: () => user.mejorPuntuacion >= 1000, icono: '💯' },
       { id: 'explorador', nombre: 'Explorador', descripcion: 'Juega las 5 ingenierías', condicion: () => Object.values(user.progresoIngenierias || {}).filter(i => i.intentos > 0).length === 5, icono: '🗺️' },
       { id: 'maestro', nombre: 'Maestro', descripcion: 'Completa una ingeniería al 100%', condicion: () => Object.values(user.progresoIngenierias || {}).some(i => i.completada), icono: '🏆' },
       { id: 'veterano', nombre: 'Veterano', descripcion: 'Juega 10 partidas', condicion: () => user.partidasJugadas >= 10, icono: '⭐' }
     ];
-    
+
     logrosDisponibles.forEach(logro => {
       const yaDesbloqueado = user.logros.find(l => l.id === logro.id);
       if (!yaDesbloqueado && logro.condicion()) {
@@ -139,6 +166,7 @@ function GamePage() {
         if (nuevasVidas <= 0) {
           // ❌ Se queda sin vidas → Mostrar modal
           setMostrarModalDerrota(true);
+          //actualizarEstadisticasUsuario()
         }
         return nuevasVidas;
       });
@@ -161,7 +189,7 @@ function GamePage() {
     setPreguntaActual(0);
     setVidas(5);
     setMostrarModalDerrota(false);
-
+    setJuegoTerminado(true)
     navigate('/select-ingenieria');
   };
 
@@ -329,6 +357,18 @@ function GamePage() {
           </div>
         </div>
       )}
+
+      {mostrarModalNivel && (
+        <div className="modal-overlay fade-in" onClick={() => setMostrarModalNivel(false)}>
+          <div className="modal-content-info">
+            <img src={imagenNivel} alt="Nivel" style={{ width: "100%", borderRadius: "10px" }} />
+            <button className="btn btn-primary" onClick={() => setMostrarModalNivel(false)}>
+              Continuar
+            </button>
+          </div>
+        </div>
+      )}
+
 
     </div>
   );

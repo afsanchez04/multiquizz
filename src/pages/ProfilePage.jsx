@@ -17,6 +17,9 @@ function ProfilePage() {
   const [editando, setEditando] = useState(false);
   const [nuevoNombre, setNuevoNombre] = useState('');
   const [nuevoAvatar, setNuevoAvatar] = useState('');
+  const [mostrarModalCertificado, setMostrarModalCertificado] = useState(false);
+  const [ingenieriaSeleccionadaModal, setIngenieriaSeleccionadaModal] = useState('');
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,8 +45,8 @@ function ProfilePage() {
   };
 
   const descargarCertificado = (ingenieria) => {
-    // Aquí se generaría el PDF - por ahora solo alerta
-    alert(`Descargando certificado de ${NOMBRES_INGENIERIAS[ingenieria]}`);
+    setIngenieriaSeleccionadaModal(ingenieria);
+    setMostrarModalCertificado(true);
   };
 
   const handleLogout = () => {
@@ -79,7 +82,7 @@ function ProfilePage() {
 
       <main className="profile-main">
         <div className="container">
-          
+
           {/* Tarjeta de identidad */}
           <div className="profile-identity fade-in">
             <div className="identity-left">
@@ -100,7 +103,7 @@ function ProfilePage() {
                   <span className="avatar-icon">{user.avatar || '👤'}</span>
                 )}
               </div>
-              
+
               <div className="identity-info">
                 {editando ? (
                   <input
@@ -172,22 +175,22 @@ function ProfilePage() {
             <div className="ingenierias-progress">
               {Object.entries(user.progresoIngenierias || {}).map(([key, data]) => {
                 const porcentaje = data.completada ? 100 : Math.min((data.mejorScore / 1000) * 100, 99);
-                
+
                 return (
                   <div key={key} className="ingenieria-progress-card">
                     <div className="ing-header">
                       <h3>{NOMBRES_INGENIERIAS[key]}</h3>
                       {data.completada && <span className="badge-completado">✓ Completada</span>}
                     </div>
-                    
+
                     <div className="ing-stats">
                       <span>Mejor puntaje: <strong>{data.mejorScore}</strong></span>
                       <span>Intentos: <strong>{data.intentos}</strong></span>
                     </div>
-                    
+
                     <div className="progreso-bar-small">
-                      <div 
-                        className={`progreso-fill-${key}`} 
+                      <div
+                        className={`progreso-fill-${key}`}
                         style={{ width: `${porcentaje}%` }}
                       ></div>
                     </div>
@@ -209,7 +212,7 @@ function ProfilePage() {
                   <small>{new Date(logro.fechaDesbloqueo).toLocaleDateString()}</small>
                 </div>
               ))}
-              
+
               {(user.logros || []).length === 0 && (
                 <p className="empty-state">Aún no has desbloqueado logros. ¡Sigue jugando!</p>
               )}
@@ -229,7 +232,7 @@ function ProfilePage() {
                     </span>
                   </div>
                   <p>Puntaje: <strong>{cert.puntaje} pts</strong></p>
-                  <button 
+                  <button
                     onClick={() => descargarCertificado(cert.ingenieria)}
                     className="btn btn-primary btn-small"
                   >
@@ -237,7 +240,7 @@ function ProfilePage() {
                   </button>
                 </div>
               ))}
-              
+
               {(user.certificados || []).length === 0 && (
                 <p className="empty-state">
                   Completa una ingeniería con puntaje perfecto para obtener tu certificado.
@@ -247,8 +250,29 @@ function ProfilePage() {
           </div>
 
         </div>
+
       </main>
+      {mostrarModalCertificado && (
+        <div className="modal-overlay">
+          <div className="modal-content fade-in">
+            <h2>📜 Certificado listo</h2>
+            <p>
+              Descargando tu certificado de <strong>{NOMBRES_INGENIERIAS[ingenieriaSeleccionadaModal]}...</strong> 
+            </p>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => setMostrarModalCertificado(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
+
+
   );
 }
 
